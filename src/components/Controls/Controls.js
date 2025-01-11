@@ -6,7 +6,14 @@ import Button from "../Button";
 
 import styles from "../ToastPlayground/ToastPlayground.module.css";
 
-function Controls({ message, setMessage, options, variant, setVariant }) {
+function Controls({
+  message,
+  setMessage,
+  options,
+  variant,
+  setVariant,
+  setIsToastVisible,
+}) {
   return (
     <form className={styles.controlsWrapper}>
       <div className={styles.row}>
@@ -30,7 +37,14 @@ function Controls({ message, setMessage, options, variant, setVariant }) {
       <div className={styles.row}>
         <div className={styles.label} />
         <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
-          <Button>Pop Toast!</Button>
+          <Button
+            onClick={(event) => {
+              event.preventDefault();
+              setIsToastVisible(true);
+            }}
+          >
+            Pop Toast!
+          </Button>
         </div>
       </div>
     </form>
