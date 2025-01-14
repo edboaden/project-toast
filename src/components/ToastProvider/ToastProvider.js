@@ -1,4 +1,5 @@
-import React, { use } from "react";
+import React from "react";
+import useKeyDown from "../../hooks/customHooks";
 
 export const ToastContext = React.createContext();
 
@@ -28,10 +29,10 @@ function ToastProvider({ children }) {
   };
 
   // dismiss all
-
   const dismissAll = () => {
     setToasts([]);
   };
+  useKeyDown("Escape", dismissAll);
 
   return (
     <ToastContext.Provider

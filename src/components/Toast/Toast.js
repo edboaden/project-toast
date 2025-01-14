@@ -39,7 +39,6 @@ function Toast({ children, variant, id }) {
         onClick={() => handleDismiss(id)}
       >
         <X size={24} />
-        <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
     </div>
   );
