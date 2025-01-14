@@ -12,10 +12,32 @@ function Controls({
   options,
   variant,
   setVariant,
-  setIsToastVisible,
+  toasts,
+  setToasts,
 }) {
+  const handleSubmit = (variant, message) => {
+    const newToast = {
+      variant: variant,
+      message: message,
+      id: crypto.randomUUID(),
+    };
+
+    const nextToasts = [...toasts, newToast];
+
+    setToasts(nextToasts);
+
+    setVariant("notice");
+    setMessage("");
+  };
   return (
-    <form className={styles.controlsWrapper}>
+    <form
+      className={styles.controlsWrapper}
+      onSubmit={(event) => {
+        event.preventDefault();
+
+        handleSubmit(variant, message);
+      }}
+    >
       <div className={styles.row}>
         <TextArea label="Message" message={message} setMessage={setMessage} />
       </div>
@@ -37,14 +59,7 @@ function Controls({
       <div className={styles.row}>
         <div className={styles.label} />
         <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
-          <Button
-            onClick={(event) => {
-              event.preventDefault();
-              setIsToastVisible(true);
-            }}
-          >
-            Pop Toast!
-          </Button>
+          <Button>Pop Toast!</Button>
         </div>
       </div>
     </form>

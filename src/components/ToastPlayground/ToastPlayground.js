@@ -2,7 +2,7 @@ import React from "react";
 
 import Header from "../Header";
 import Controls from "../Controls";
-import Toast from "../Toast";
+import ToastShelf from "../ToastShelf";
 
 import styles from "./ToastPlayground.module.css";
 
@@ -11,27 +11,30 @@ const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 function ToastPlayground() {
   const [message, setMessage] = React.useState("");
   const [variant, setVariant] = React.useState(VARIANT_OPTIONS[0]);
-  const [isToastVisible, setIsToastVisible] = React.useState(false);
-  const handleDismissToast = () => {
-    setIsToastVisible(false);
-  };
+  const [toasts, setToasts] = React.useState([
+    {
+      id: crypto.randomUUID(),
+      message: "Oh no!",
+      variant: "error",
+    },
+    {
+      id: crypto.randomUUID(),
+      message: "Logged in",
+      variant: "success",
+    },
+  ]);
   return (
     <div className={styles.wrapper}>
       <Header />
-      <Toast
-        variant={variant}
-        isToastVisible={isToastVisible}
-        handleDismiss={handleDismissToast}
-      >
-        {message}
-      </Toast>
+      <ToastShelf toasts={toasts} setToasts={setToasts} />
       <Controls
         message={message}
         setMessage={setMessage}
         options={VARIANT_OPTIONS}
         variant={variant}
         setVariant={setVariant}
-        setIsToastVisible={setIsToastVisible}
+        toasts={toasts}
+        setToasts={setToasts}
       />
     </div>
   );
