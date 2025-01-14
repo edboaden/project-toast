@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 
 export const ToastContext = React.createContext();
 
@@ -9,7 +9,7 @@ function ToastProvider({ children }) {
   const handleSubmit = (variant, message) => {
     const newToast = {
       variant: variant,
-      message: message,
+      message: message || "No message",
       id: crypto.randomUUID(),
     };
 
@@ -27,12 +27,19 @@ function ToastProvider({ children }) {
     setToasts(nextToasts);
   };
 
+  // dismiss all
+
+  const dismissAll = () => {
+    setToasts([]);
+  };
+
   return (
     <ToastContext.Provider
       value={{
         toasts,
         handleSubmit,
         handleDismiss,
+        dismissAll,
       }}
     >
       {children}
